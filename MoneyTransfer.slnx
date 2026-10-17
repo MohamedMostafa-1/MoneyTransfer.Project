@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="MoneyTransfer.BusinessLayer/MoneyTransfer.BusinessLayer.csproj" Id="49c9cf67-2042-4a67-9d50-9849ce1fc182" />
+  <Project Path="MoneyTransfer.DataAccessLayer/MoneyTransfer.DataAccessLayer.csproj" Id="9b678cb5-16dd-4405-91e7-e5f66fe4249e" />
+  <Project Path="MoneyTransfer.PresentationLayer/MoneyTransfer.PresentationLayer.csproj" Id="8341171b-2e9c-4a7f-a8d5-14c9c8319edf" />
+</Solution>
