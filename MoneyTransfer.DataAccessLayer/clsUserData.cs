@@ -151,5 +151,43 @@ namespace MoneyTransfer.DataAccessLayer
             }
             return (rowAffected > 0);
         }
+        public static bool FindUserByID(int UserID, ref stUserInfo UserInfo)
+        {
+            SqlConnection connection = new SqlConnection(clsDataAccessSetting.ConnectionString);
+            string Query = @"Select * from Users
+                                Where UserID = @UserID";
+
+            SqlCommand command = new SqlCommand(Query, connection);
+            command.Parameters.AddWithValue("@UserID", UserID);
+
+            bool isFound = false;
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    isFound = true;
+
+                    UserInfo.UserID = UserID;
+                    UserInfo.Username =(string) reader["Username"];
+                    UserInfo.PasswordHash =(string) reader["PasswordHash"];
+                    UserInfo.Role =(string) reader["Role"];
+                    UserInfo.IsActive =(bool) reader["IsActive"];
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error Message: " + ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return isFound;
+        }
     }
 }
