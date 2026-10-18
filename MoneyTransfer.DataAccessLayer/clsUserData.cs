@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -49,5 +50,42 @@ namespace MoneyTransfer.DataAccessLayer
             }
             return dtUsers;
         } 
+        public static int AddNewUser(stUserInfo userInfo)
+        {
+            SqlConnection connection = new SqlConnection();
+            string Query = @"Insert into Users(Username ,PasswordHash , Role , IsActive)
+                                    Value (@Username , @PasswordHash , @Role , @IsActive)";
+
+            SqlCommand command = new SqlCommand(Query, connection);
+            command.Parameters.AddWithValue("@Username", userInfo.Username);
+            command.Parameters.AddWithValue("@PasswordHash", userInfo.PasswordHash);
+            command.Parameters.AddWithValue("@Role", userInfo.Role);
+            command.Parameters.AddWithValue("@IsActive", userInfo.IsActive);
+
+            try
+            {
+                connection.Open();
+
+                object Result = command.ExecuteScalar();
+
+                if (Result != null && int.TryParse(Result.ToString(), out int InsertID))
+                {
+                    return InsertID;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error Message: " + ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return -1;
+        }
     }
 }
