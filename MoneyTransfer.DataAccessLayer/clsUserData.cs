@@ -122,5 +122,34 @@ namespace MoneyTransfer.DataAccessLayer
             }
             return (rowAffected > 0);
         }
+
+        public static bool DeleteUser(int UserID)
+        {
+            SqlConnection connection = new SqlConnection();
+
+            string Query = @"Delete From Users 
+                                Where UserID = @UserID";
+
+            SqlCommand command = new SqlCommand(Query, connection);
+            command.Parameters.AddWithValue("@UserID", UserID);
+
+            int rowAffected = 0;
+
+            try
+            {
+                connection.Open();
+
+                rowAffected = command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error Message: " + ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return (rowAffected > 0);
+        }
     }
 }
