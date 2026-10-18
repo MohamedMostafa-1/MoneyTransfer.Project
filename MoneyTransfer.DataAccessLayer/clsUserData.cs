@@ -52,7 +52,7 @@ namespace MoneyTransfer.DataAccessLayer
         } 
         public static int AddNewUser(stUserInfo userInfo)
         {
-            SqlConnection connection = new SqlConnection();
+            SqlConnection connection = new SqlConnection(clsDataAccessSetting.ConnectionString);
             string Query = @"Insert into Users(Username ,PasswordHash , Role , IsActive)
                                     Value (@Username , @PasswordHash , @Role , @IsActive)";
 
@@ -90,7 +90,7 @@ namespace MoneyTransfer.DataAccessLayer
 
         public static bool UpdateUser(stUserInfo userInfo)
         {
-            SqlConnection connection = new SqlConnection();
+            SqlConnection connection = new SqlConnection(clsDataAccessSetting.ConnectionString);
             string Query = @"Update Users
                                 set  Username =@Username
                                     ,PasswordHash =@PasswordHash 
@@ -125,7 +125,7 @@ namespace MoneyTransfer.DataAccessLayer
 
         public static bool DeleteUser(int UserID)
         {
-            SqlConnection connection = new SqlConnection();
+            SqlConnection connection = new SqlConnection(clsDataAccessSetting.ConnectionString);
 
             string Query = @"Delete From Users 
                                 Where UserID = @UserID";
