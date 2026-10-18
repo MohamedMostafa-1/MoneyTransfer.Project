@@ -87,5 +87,40 @@ namespace MoneyTransfer.DataAccessLayer
             }
             return -1;
         }
+
+        public static bool UpdateUser(stUserInfo userInfo)
+        {
+            SqlConnection connection = new SqlConnection();
+            string Query = @"Update Users
+                                set  Username =@Username
+                                    ,PasswordHash =@PasswordHash 
+                                    , Role  =  @Role
+                                    ,IsActive = @IsActive
+                                where UserID = @UserID";
+
+            SqlCommand command = new SqlCommand(Query, connection);
+            command.Parameters.AddWithValue("@Username", userInfo.Username);
+            command.Parameters.AddWithValue("@PasswordHash", userInfo.PasswordHash);
+            command.Parameters.AddWithValue("@Role", userInfo.Role);
+            command.Parameters.AddWithValue("@IsActive", userInfo.IsActive);
+            command.Parameters.AddWithValue("@UserID" , userInfo.UserID);
+
+            int rowAffected = 0;
+            try
+            {
+                connection.Open();
+
+                rowAffected = command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error Message: " + ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return (rowAffected > 0);
+        }
     }
 }
