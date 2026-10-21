@@ -125,30 +125,34 @@ namespace MoneyTransfer.DataAccessLayer
 
         public static bool DeleteUser(int UserID)
         {
-            SqlConnection connection = new SqlConnection(clsDataAccessSetting.ConnectionString);
 
-            string Query = @"Delete From Users 
-                                Where UserID = @UserID";
-
-            SqlCommand command = new SqlCommand(Query, connection);
-            command.Parameters.AddWithValue("@UserID", UserID);
+            string Query = @"Update Users 
+                                set IsActive = 0
+                                Where UserID = @UserID
+                                        And IsActive = 1";
 
             int rowAffected = 0;
 
             try
             {
-                connection.Open();
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSetting.ConnectionString))
+                using (SqlCommand command = new SqlCommand(Query, connection))
+                {
+                    command.Parameters.Add("@UserID", SqlDbType.Int).Value = UserID;
 
-                rowAffected = command.ExecuteNonQuery();
+                    connection.Open();
+
+                    rowAffected = command.ExecuteNonQuery();
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error Message: " + ex.Message);
             }
-            finally
-            {
-                connection.Close();
-            }
+            //finally
+            //{
+            //    connection.Close();
+            //}
             return (rowAffected > 0);
         }
         public static bool FindUserByID(int UserID, ref stUserInfo UserInfo)
