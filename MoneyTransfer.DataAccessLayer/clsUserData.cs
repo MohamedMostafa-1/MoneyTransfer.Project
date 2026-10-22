@@ -262,5 +262,36 @@ namespace MoneyTransfer.DataAccessLayer
 
             return IsFound;
         }
+
+        public static bool ChangePassword(string Username , string Password)
+        {
+            string Query = @"Update Users
+                                 set Password = @Password
+                                    Where Username = @Username";
+
+            int rowAffected = 0;
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSetting.ConnectionString))
+                using (SqlCommand command = new SqlCommand(Query, connection))
+                {
+                    command.Parameters.AddWithValue("@Username", Username);
+                    command.Parameters.AddWithValue("@Password",Password);
+
+                    connection.Open();
+
+                    rowAffected = command.ExecuteNonQuery();
+                }
+
+              
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error Message: " + ex.Message);
+            }
+            return (rowAffected > 0);
+        }
+       
     }
 }
