@@ -231,5 +231,36 @@ namespace MoneyTransfer.DataAccessLayer
             }
             return isFound;
         }
+
+        public static bool IsUserExist(int UserID)
+        {
+            string Query = @"Select found = 1 From User Where  UserID = @UserID";
+
+            bool IsFound = false;
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSetting.ConnectionString))
+                using( SqlCommand command = new SqlCommand(Query, connection)) 
+                {
+                    command.Parameters.AddWithValue("@UserID", UserID);
+
+                    connection.Open();
+
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    if (reader.HasRows)
+                        IsFound = true;
+                    else
+                        IsFound = false;
+                };
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error Message: " + ex.Message);
+            }
+
+            return IsFound;
+        }
     }
 }
