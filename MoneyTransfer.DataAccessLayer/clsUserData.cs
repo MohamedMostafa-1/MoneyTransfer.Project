@@ -9,16 +9,18 @@ using System.Threading.Tasks;
 
 namespace MoneyTransfer.DataAccessLayer
 {
-    public struct stUserInfo
-    {
-        public int UserID;
-        public string Username;
-        public string PasswordHash;
-        public string Role;
-        public bool IsActive;
-    }
+   
     public class clsUserData
     {
+        public struct stUserInfo
+        {
+            public int UserID;
+            public string Username;
+            public string PasswordHash;
+            public string Role;
+            public bool IsActive;
+            public int Permission;
+        }
         public static DataTable GetAllUsers()
         {
             SqlConnection connection = new SqlConnection(clsDataAccessSetting.ConnectionString);
@@ -53,14 +55,15 @@ namespace MoneyTransfer.DataAccessLayer
         public static int AddNewUser(stUserInfo userInfo)
         {
             SqlConnection connection = new SqlConnection(clsDataAccessSetting.ConnectionString);
-            string Query = @"Insert into Users(Username ,PasswordHash , Role , IsActive)
-                                    Value (@Username , @PasswordHash , @Role , @IsActive)";
+            string Query = @"Insert into Users(Username ,PasswordHash , Role , IsActive , Permission )
+                                    Value (@Username , @PasswordHash , @Role , @IsActive , @Permission )";
 
             SqlCommand command = new SqlCommand(Query, connection);
             command.Parameters.AddWithValue("@Username", userInfo.Username);
             command.Parameters.AddWithValue("@PasswordHash", userInfo.PasswordHash);
             command.Parameters.AddWithValue("@Role", userInfo.Role);
             command.Parameters.AddWithValue("@IsActive", userInfo.IsActive);
+            command.Parameters.AddWithValue("@Permission ", userInfo.Permission);
 
             try
             {
@@ -96,6 +99,7 @@ namespace MoneyTransfer.DataAccessLayer
                                     ,PasswordHash =@PasswordHash 
                                     , Role  =  @Role
                                     ,IsActive = @IsActive
+                                    ,Permission  = @Permission 
                                 where UserID = @UserID";
 
             SqlCommand command = new SqlCommand(Query, connection);
@@ -104,6 +108,8 @@ namespace MoneyTransfer.DataAccessLayer
             command.Parameters.AddWithValue("@Role", userInfo.Role);
             command.Parameters.AddWithValue("@IsActive", userInfo.IsActive);
             command.Parameters.AddWithValue("@UserID" , userInfo.UserID);
+            command.Parameters.AddWithValue("@Permission ", userInfo.Permission);
+
 
             int rowAffected = 0;
             try
@@ -180,6 +186,7 @@ namespace MoneyTransfer.DataAccessLayer
                     UserInfo.PasswordHash =(string) reader["PasswordHash"];
                     UserInfo.Role =(string) reader["Role"];
                     UserInfo.IsActive =(bool) reader["IsActive"];
+                    UserInfo.Permission =(int) reader["Permission"];
                 }
                 reader.Close();
             }
@@ -218,6 +225,7 @@ namespace MoneyTransfer.DataAccessLayer
                     UserInfo.PasswordHash =(string) reader["PasswordHash"];
                     UserInfo.Role =(string) reader["Role"];
                     UserInfo.IsActive =(bool) reader["IsActive"];
+                    UserInfo.Permission = (int)reader["Permission"];
                 }
                 reader.Close();
             }
@@ -293,5 +301,6 @@ namespace MoneyTransfer.DataAccessLayer
             return (rowAffected > 0);
         }
        
+
     }
 }
