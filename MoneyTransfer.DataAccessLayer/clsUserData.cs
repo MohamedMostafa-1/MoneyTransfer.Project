@@ -129,7 +129,7 @@ namespace MoneyTransfer.DataAccessLayer
             return (rowAffected > 0);
         }
 
-        public static bool DeleteUser(int UserID)
+        public static bool DeactivateUser(int UserID)
         {
 
             string Query = @"Update Users 
@@ -160,6 +160,35 @@ namespace MoneyTransfer.DataAccessLayer
             //    connection.Close();
             //}
             return (rowAffected > 0);
+        }
+        public static bool ReActiveUser(int UserID)
+        {
+            string Query = @"Update Users 
+                               Set IsActive = 1
+                                 Where UserID = @UserID
+                                   And IsActive = 0";
+
+            int rowAffected = 0;
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection())
+                using (SqlCommand command = new SqlCommand(Query, connection))
+                {
+                    command.Parameters.AddWithValue("@UserID", UserID);
+
+                    connection.Open();
+                    rowAffected = command.ExecuteNonQuery();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error Message: " + ex.Message);
+            }
+
+            return (rowAffected >0);
+
         }
         public static bool FindUserByID(int UserID, ref stUserInfo UserInfo)
         {
