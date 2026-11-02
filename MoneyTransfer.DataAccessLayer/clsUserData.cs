@@ -172,7 +172,7 @@ namespace MoneyTransfer.DataAccessLayer
 
             try
             {
-                using (SqlConnection connection = new SqlConnection())
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSetting.ConnectionString))
                 using (SqlCommand command = new SqlCommand(Query, connection))
                 {
                     command.Parameters.AddWithValue("@UserID", UserID);
@@ -300,6 +300,35 @@ namespace MoneyTransfer.DataAccessLayer
             return IsFound;
         }
 
+        public static bool IsUserExistAndActive(string  Username) {
+            string Query = @"Select Found = 1 From Users
+                                Where Username = @Username 
+                                and IsActive = 1 ";
+
+            bool isFound = false;
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSetting.ConnectionString))
+                using (SqlCommand command = new SqlCommand(Query, connection))
+                {
+                    command.Parameters.AddWithValue("@Username ", Username);
+                    connection.Open();
+
+                    object result = command.ExecuteScalar();
+
+
+                    isFound = (result != null);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error Message: " + ex.Message);
+            }
+
+            return isFound;
+        }
         public static bool ChangePassword(string Username , string Password)
         {
             string Query = @"Update Users

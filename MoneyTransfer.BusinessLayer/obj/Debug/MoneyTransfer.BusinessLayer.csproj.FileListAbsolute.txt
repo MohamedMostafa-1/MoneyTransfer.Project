@@ -1,0 +1,2 @@
+D:\MoneyTransfer.Project\MoneyTransfer\MoneyTransfer.BusinessLayer\obj\Debug\MoneyTransfer.BusinessLayer.csproj.AssemblyReference.cache
+D:\MoneyTransfer.Project\MoneyTransfer\MoneyTransfer.BusinessLayer\obj\Debug\MoneyTransfer.BusinessLayer.csproj.CoreCompileInputs.cache

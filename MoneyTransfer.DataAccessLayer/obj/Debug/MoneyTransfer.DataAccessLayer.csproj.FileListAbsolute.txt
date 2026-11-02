@@ -1,0 +1,6 @@
+D:\MoneyTransfer.Project\MoneyTransfer\MoneyTransfer.DataAccessLayer\bin\Debug\MoneyTransfer.DataAccessLayer.dll
+D:\MoneyTransfer.Project\MoneyTransfer\MoneyTransfer.DataAccessLayer\bin\Debug\MoneyTransfer.DataAccessLayer.pdb
+D:\MoneyTransfer.Project\MoneyTransfer\MoneyTransfer.DataAccessLayer\obj\Debug\MoneyTransfer.DataAccessLayer.csproj.AssemblyReference.cache
+D:\MoneyTransfer.Project\MoneyTransfer\MoneyTransfer.DataAccessLayer\obj\Debug\MoneyTransfer.DataAccessLayer.csproj.CoreCompileInputs.cache
+D:\MoneyTransfer.Project\MoneyTransfer\MoneyTransfer.DataAccessLayer\obj\Debug\MoneyTransfer.DataAccessLayer.dll
+D:\MoneyTransfer.Project\MoneyTransfer\MoneyTransfer.DataAccessLayer\obj\Debug\MoneyTransfer.DataAccessLayer.pdb

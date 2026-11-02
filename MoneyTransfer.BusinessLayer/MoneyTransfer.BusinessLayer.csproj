@@ -41,7 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="clsAuthentication.cs" />
+    <Compile Include="clsPasswordHelper.cs" />
     <Compile Include="clsUser.cs" />
+    <Compile Include="CurrentUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
