@@ -7,18 +7,25 @@ using System.Threading.Tasks;
 
 namespace MoneyTransfer.BusinessLayer
 {
-    internal class CurrentUser
+    internal class clsCurrentUser
     {
         public static clsUser User  { get; private set; }
-        //public static bool IsAuthenticated => User != null;
-        public static  void setUser (clsUser user)
+        public static bool IsAuthenticated => User != null;
+        
+        public static void SetUser(clsUser UserInfo)
         {
-            User = user;
+            User = UserInfo;
         }
         public static bool Logout()
         {
             User = null;
             return true;
         }
+
+
+        //public clsCurrentUser(clsUser UserInfo)
+        //{
+        //    User = UserInfo;
+        //}
     }
 }

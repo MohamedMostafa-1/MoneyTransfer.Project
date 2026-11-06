@@ -22,9 +22,9 @@ namespace MoneyTransfer.BusinessLayer
             {
                 if (clsUserData.IsUserExistAndActive(Username))
                 {
-                    if (clsPasswordHelper.VerifyPassword(Password))
+                    if (clsPasswordHelper.VerifyPassword(Password , User.PasswordHash))
                     {
-                        clsCurrentUser currentUser = new clsCurrentUser(User);
+                        clsCurrentUser.SetUser(User);
                         LoginStatus = true;
                     }
                     else
@@ -49,6 +49,7 @@ namespace MoneyTransfer.BusinessLayer
 
         public static bool Logout()
         {
+            //deconstrean 
             return (clsCurrentUser.Logout());
         }
     }
